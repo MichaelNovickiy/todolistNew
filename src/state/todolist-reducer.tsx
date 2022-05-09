@@ -1,9 +1,20 @@
-const initialState = {}
+import { v1 } from "uuid"
 
-export function stateReducer(state = initialState, action: any) {
+export type todolistType = {
+    id: string
+    name: string
+    filter: string
+}
+
+export type initialStateType = Array<todolistType>
+
+const initialState: initialStateType = []
+
+export function todolistsReducer(state = initialState, action: any) {
     switch (action.type) {
-        case 'one':
-            return {state}
+        case 'ADD-TASK':
+            let newTask= {id: v1, name: 'newTask', filter: 'ALL'}
+            return {...state, newTask}
         case 'two':
             return {state}
         default:
@@ -11,9 +22,9 @@ export function stateReducer(state = initialState, action: any) {
     }
 }
 
-export const ACone = () => {
+export const addTaskAC = () => {
     return {
-        type: 'one',
+        type: 'ADD-TASK',
     }
 }
 export const ACtwo = () => {
