@@ -8,13 +8,16 @@ export type todolistType = {
 
 export type initialStateType = Array<todolistType>
 
-const initialState: initialStateType = []
+const initialState: initialStateType = [{
+    id: 'svd',
+    name: "svdddsv",
+    filter: "string"}]
 
 export function todolistsReducer(state = initialState, action: any) {
     switch (action.type) {
         case 'ADD-TASK':
             let newTask= {id: v1, name: 'newTask', filter: 'ALL'}
-            return {...state, newTask}
+            return [...state, newTask]
         case 'two':
             return {state}
         default:

@@ -9,7 +9,6 @@ export function Todolist(props: any) {
     const dispatch = useDispatch()
     const addTask = () => {
         dispatch(addTaskAC())
-        console.log(todolists)
     }
     return <>
         <h3>{props.name}</h3>
@@ -17,9 +16,9 @@ export function Todolist(props: any) {
             <input type="text"/>
             <button onClick={addTask}>+</button>
         </div>
-        <Task title='titleOne'/>
-        <Task/>
-        <Task/>
+        <Task name={todolists[0].name}/>
+
+
         <button>ALL</button>
         <button>ACTIVE</button>
         <button>COMPLETED</button>
