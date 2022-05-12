@@ -1,26 +1,25 @@
-import { v1 } from "uuid"
+import {v1} from "uuid"
 
 export type todolistType = {
     id: string
-    name: string
+    title: string
     filter: string
 }
 
-export type initialStateType = Array<todolistType>
-
 export let todolistId = v1()
 
-const initialState: initialStateType = [{
-    id: todolistId,
-    name: "svdddsv",
-    filter: "string"},]
+const initialState: todolistType = {
+        id: todolistId,
+        title: "TODOLIST FIRST",
+        filter: "string"
+    }
+
 
 export function todolistsReducer(state = initialState, action: any) {
     switch (action.type) {
         case 'ADD-TODOLIST':
-            let newTodolist= {id: v1, name: 'newTODOLIST', filter: 'ALL'}
-            console.log([newTodolist, ...state])
-            return [newTodolist, ...state]
+            let newTodolist = {id: v1(), title: 'newTODOLIST', filter: 'ALL'}
+            return {newTodolist, ...state}
         case 'two':
             return {state}
         default:
