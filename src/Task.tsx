@@ -1,13 +1,22 @@
 import React from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {addTodolistAC} from "./state/todolist-reducer";
 
 export function Task(props: any) {
     // @ts-ignore
     // let task = useSelector(store => store.todolists)
-    console.log(props.name)
+
+
     return <div>
-        <input type="checkbox"/>
-        {props.name}
-        <button>X</button>
-    </div>;
+
+        <div>
+            <input type="checkbox"/>
+            {props.task.title}
+            <button>X</button>
+        </div>
+        <button>ALL</button>
+        <button>ACTIVE</button>
+        <button>COMPLETED</button>
+    </div>
+
 }

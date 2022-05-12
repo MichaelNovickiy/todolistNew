@@ -1,8 +1,22 @@
-const initialState = {}
+import {todolistId} from "./todolist-reducer";
+
+export type TasksStateType = {
+    [key: string]: Array<TaskType>
+}
+
+export type TaskType = {
+    id: string,
+    title: string,
+    isDone: boolean,
+}
+
+const initialState: TasksStateType = {
+    [todolistId]: [{id: 'sdsvsdd', title: 'string', isDone: true}]}
+
 
 export function tasksReducer(state = initialState, action: any) {
     switch (action.type) {
-        case 'one':
+        case 'ADD-TASK':
             return {state}
         case 'two':
             return {state}
@@ -11,9 +25,9 @@ export function tasksReducer(state = initialState, action: any) {
     }
 }
 
-export const ACone = () => {
+export const addTaskAC = () => {
     return {
-        type: 'one',
+        type: 'ADD-TASK',
     }
 }
 export const ACtwo = () => {

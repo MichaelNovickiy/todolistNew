@@ -1,26 +1,35 @@
 import React from "react";
-import {Task} from "./Task";
 import {useDispatch, useSelector} from "react-redux";
-import { addTaskAC } from "./state/todolist-reducer";
+import {InputText} from "./InputText";
+import {addTaskAC, TasksStateType,} from "./state/task-reducer";
+import {Task} from "./Task";
+
 
 export function Todolist(props: any) {
-    // @ts-ignore
-    const todolists = useSelector(state => state.todolists)
+    // // @ts-ignore
+    // const todolists = useSelector(state => state.todolists)
+    // // @ts-ignore
+    // const tasks: any = useSelector(state => state.tasks)
     const dispatch = useDispatch()
+
     const addTask = () => {
         dispatch(addTaskAC())
     }
-    return <>
-        <h3>{props.name}</h3>
-        <div>
-            <input type="text"/>
-            <button onClick={addTask}>+</button>
+    let tasksForTodolist = props.tasks
+
+    return <div>
+        <div style={{color: 'green', textAlign: 'center'}}>
+            {props.name}
+            <InputText onClick={addTask}/>
         </div>
-        <Task name={todolists[0].name}/>
-
-
-        <button>ALL</button>
-        <button>ACTIVE</button>
-        <button>COMPLETED</button>
-    </>;
+        <div>
+            {
+                tasksForTodolist.map((t: any) => <Task
+                    key={t.id}
+                    task={t}
+                    todolistId={props.id}
+                />)
+            }
+        </div>
+    </div>;
 }
