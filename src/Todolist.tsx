@@ -3,6 +3,7 @@ import {useDispatch,} from "react-redux";
 import {InputText} from "./InputText";
 import {addTaskAC, TaskType,} from "./state/task-reducer";
 import {Task} from "./Task";
+import {changeFilterAC} from "./state/todolist-reducer";
 
 
 export function Todolist(props: any) {
@@ -11,6 +12,7 @@ export function Todolist(props: any) {
     const addTask = (text: string) => {
         dispatch(addTaskAC(text))
     }
+
     return <div>
         <div style={{color: 'green'}}>
 
@@ -25,9 +27,21 @@ export function Todolist(props: any) {
                 />
             })}
 
-            <button>ALL</button>
-            <button>ACTIVE</button>
-            <button>COMPLETED</button>
+            <button onClick={(e) => {
+                dispatch(changeFilterAC('all'))
+            }
+            }>ALL
+            </button>
+            <button onClick={(e) => {
+                dispatch(changeFilterAC('active'))
+            }
+            }>ACTIVE
+            </button>
+            <button onClick={(e) => {
+                dispatch(changeFilterAC('completed'))
+            }
+            }>COMPLETED
+            </button>
         </div>
     </div>;
 }
