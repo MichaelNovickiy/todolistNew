@@ -1,4 +1,5 @@
 import React from "react";
+import './Styles.css';
 import {useDispatch,} from "react-redux";
 import {InputText} from "./InputText";
 import {addTaskAC, TaskType,} from "./state/task-reducer";
@@ -29,18 +30,17 @@ export function Todolist(props: any) {
 
             <button onClick={(e) => {
                 dispatch(changeFilterAC('all'))
-            }
-            }>ALL
+            }} className={props.filter === 'all' ? 'active' : ''}>ALL
             </button>
             <button onClick={(e) => {
                 dispatch(changeFilterAC('active'))
             }
-            }>ACTIVE
+            } className={props.filter === 'active' ? 'active' : ''}>ACTIVE
             </button>
             <button onClick={(e) => {
                 dispatch(changeFilterAC('completed'))
             }
-            }>COMPLETED
+            } className={props.filter === 'completed' ? 'active' : ''}>COMPLETED
             </button>
         </div>
     </div>;

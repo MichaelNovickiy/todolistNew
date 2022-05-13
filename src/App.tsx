@@ -24,6 +24,7 @@ function App() {
         <div className='Main'>
             <Todolist title={todolists.title}
                       tasks={allTasks}
+                      filter={todolists.filter}
             />
         </div>
     );
