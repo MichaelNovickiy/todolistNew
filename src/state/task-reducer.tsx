@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {log} from "util";
 
 const ADD_TASK = 'ADD-TASK'
 const CHANGE_CHECKED_TASK = 'CHANGE_CHECKED_TASK'

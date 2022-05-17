@@ -1,3 +1,10 @@
 .Main {
     padding: 50px;
 }
+
+.errorInput {
+    border: 2px red solid;
+}
+.error {
+    color: red
+}

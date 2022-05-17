@@ -4,7 +4,8 @@ import {Todolist} from "./Todolist";
 import {useDispatch, useSelector} from "react-redux";
 import { todolistType,} from "./state/todolist-reducer";
 import {AppRootStateType} from './state/store';
-import {TasksStateType} from "./state/task-reducer";
+import {addTaskAC, TasksStateType} from "./state/task-reducer";
+import {InputText} from "./InputText";
 
 function App() {
     const todolists = useSelector<AppRootStateType, todolistType>(state => state.todolists)

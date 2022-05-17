@@ -6,29 +6,37 @@ type propsType = {
 
 export function InputText(props: propsType) {
     let [textInput, setTextInput] = useState<string>('')
+    let [error, setError] = useState<string | null>(null)
 
     const onChangeTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTextInput(e.currentTarget.value)
+        setError(null)
     }
 
     const addTask = () => {
-        props.addTask(textInput)
-        setTextInput('')
-    }
-    const onKeyPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
+        if (textInput.trim() !== '') {
             props.addTask(textInput)
             setTextInput('')
+        } else {
+            setError('ERROR')
+        }
+    }
+
+    const onKeyPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            addTask()
         }
     }
 
 
     return <div>
-        <input type="text"
+        <input className={error ? 'errorInput' : ''}
+               type="text"
                value={textInput}
                onChange={onChangeTextHandler}
                onKeyPress={onKeyPressEnter}
         />
         <button onClick={addTask}>+</button>
+        <div className='error'>{error}</div>
     </div>;
 }
