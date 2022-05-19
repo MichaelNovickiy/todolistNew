@@ -12,9 +12,16 @@ function App() {
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
 
+    // let allTasks = tasks
+    // if (todolists[0].filter === 'completed') {
+    //     allTasks = tasks.filter(t => !t.isDone)
+    // }
+    // if (todolists[0].filter === 'active') {
+    //     allTasks = tasks.filter(t => t.isDone)
+    // }
     let allTasks = tasks
     if (todolists.filter === 'completed') {
-         allTasks = tasks.filter(t => !t.isDone)
+        allTasks = tasks.filter(t => !t.isDone)
     }
     if (todolists.filter === 'active') {
         allTasks = tasks.filter(t => t.isDone)

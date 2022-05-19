@@ -13,6 +13,10 @@ type actionType = {
 
 export type TasksStateType = Array<TaskType>
 
+// export type TasksStateType = {
+//     [key: string]: Array<TaskType>
+// }
+
 export type TaskType = {
     id: string,
     title: string,
