@@ -1,39 +1,39 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
 import {useDispatch, useSelector} from "react-redux";
-import { todolistType,} from "./state/todolist-reducer";
+import {fetchTodolistsTC, TodolistDomainType,} from "./state/todolist-reducer";
 import {AppRootStateType} from './state/store';
-import {addTaskAC, TasksStateType} from "./state/task-reducer";
-import {InputText} from "./InputText";
+import {fetchTasksTC, TasksStateType} from "./state/task-reducer";
 
 function App() {
-    const todolists = useSelector<AppRootStateType, todolistType>(state => state.todolists)
+    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+
     const dispatch = useDispatch()
 
-    // let allTasks = tasks
-    // if (todolists[0].filter === 'completed') {
-    //     allTasks = tasks.filter(t => !t.isDone)
-    // }
-    // if (todolists[0].filter === 'active') {
-    //     allTasks = tasks.filter(t => t.isDone)
-    // }
-    let allTasks = tasks
-    if (todolists.filter === 'completed') {
-        allTasks = tasks.filter(t => !t.isDone)
-    }
-    if (todolists.filter === 'active') {
-        allTasks = tasks.filter(t => t.isDone)
-    }
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(fetchTodolistsTC())
+    }, [])
 
 
     return (
         <div className='Main'>
-            <Todolist title={todolists.title}
-                      tasks={allTasks}
-                      filter={todolists.filter}
-            />
+            {
+                todolists.map(tl => {
+                    let allTodolistTasks = tasks[tl.id]
+
+                    return (
+                        <Todolist
+                            key={tl.id}
+                            id={tl.id}
+                            title={tl.title}
+                            tasks={allTodolistTasks}
+                        />
+                    )
+                })
+            }
         </div>
     );
 }

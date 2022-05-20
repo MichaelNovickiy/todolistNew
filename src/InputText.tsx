@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 type propsType = {
-    addTask: (text: string) => void
+    addTask?: (text: string) => void
 }
 
 export function InputText(props: propsType) {
@@ -13,20 +13,20 @@ export function InputText(props: propsType) {
         setError(null)
     }
 
-    const addTask = () => {
-        if (textInput.trim() !== '') {
-            props.addTask(textInput)
-            setTextInput('')
-        } else {
-            setError('ERROR')
-        }
-    }
-
-    const onKeyPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            addTask()
-        }
-    }
+    // const addTask = () => {
+    //     if (textInput.trim() !== '') {
+    //         props.addTask(textInput)
+    //         setTextInput('')
+    //     } else {
+    //         setError('ERROR')
+    //     }
+    // }
+    //
+    // const onKeyPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    //     if (e.key === 'Enter') {
+    //         addTask()
+    //     }
+    // }
 
 
     return <div>
@@ -34,9 +34,9 @@ export function InputText(props: propsType) {
                type="text"
                value={textInput}
                onChange={onChangeTextHandler}
-               onKeyPress={onKeyPressEnter}
+               // onKeyPress={onKeyPressEnter}
         />
-        <button onClick={addTask}>+</button>
+        {/*<button onClick={addTask}>+</button>*/}
         <div className='error'>{error}</div>
     </div>;
 }

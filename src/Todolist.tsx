@@ -1,46 +1,51 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './Styles.css';
 import {useDispatch,} from "react-redux";
-import {InputText} from "./InputText";
-import {addTaskAC, TaskType,} from "./state/task-reducer";
+import {fetchTasksTC,} from "./state/task-reducer";
 import {Task} from "./Task";
-import {changeFilterAC} from "./state/todolist-reducer";
 
 
 export function Todolist(props: any) {
     const dispatch = useDispatch()
 
-    const addTask = (text: string) => {
-        dispatch(addTaskAC(text))
-    }
+    useEffect(() => {
+        const thunk = fetchTasksTC(props.id)
+        // @ts-ignore
+        dispatch(thunk)
+    }, [])
 
     return <div>
-        <div style={{color: 'green'}}>
+        <div>
+            <h3>{props.title}</h3>
 
-            {props.title}
-
-            <InputText addTask={addTask}/>
-
-            {props.tasks.map((t: TaskType) => {
-                return <Task id={t.id}
-                             title={t.title}
-                             isDone={t.isDone}
-                />
-            })}
-
-            <button onClick={(e) => {
-                dispatch(changeFilterAC('all'))
-            }} className={props.filter === 'all' ? 'active' : ''}>ALL
-            </button>
-            <button onClick={(e) => {
-                dispatch(changeFilterAC('active'))
+            {/*<InputText />*/}
+            {
+                props.tasks.map((t: any) => <Task key={t.id} task={t} todolistId={props.id}
+                />)
             }
-            } className={props.filter === 'active' ? 'active' : ''}>ACTIVE
+            {/*{*/}
+            {/*    props.tasks.map((t: any) => <div key={t.id}>1</div>)*/}
+            {/*}*/}
+            {/*{*/}
+            {/*    props.task.map((t: any) => <Task key={t.id} title={t.title}*/}
+            {/*    />)*/}
+            {/*}*/}
+            {/*{*/}
+            {/*    props.task.map((t: any) => <div>{t}</div>)*/}
+            {/*}*/}
+
+            {/*{props.tasks.map((t: any) => {*/}
+            {/*    return <Task*/}
+            {/*        id={t.id}*/}
+            {/*        title={t.title}*/}
+            {/*    />*/}
+            {/*})}*/}
+
+            <button className={props.filter === 'all' ? 'active' : ''}>ALL
             </button>
-            <button onClick={(e) => {
-                dispatch(changeFilterAC('completed'))
-            }
-            } className={props.filter === 'completed' ? 'active' : ''}>COMPLETED
+            <button className={props.filter === 'active' ? 'active' : ''}>ACTIVE
+            </button>
+            <button className={props.filter === 'completed' ? 'active' : ''}>COMPLETED
             </button>
         </div>
     </div>;
