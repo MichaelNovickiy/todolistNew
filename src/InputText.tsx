@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 
 type propsType = {
-    addTask?: (text: string) => void
+    addTodolistOrTask: (text: string) => void
 }
 
-export function InputText(props: propsType) {
+export function InputForCreate(props: propsType) {
     let [textInput, setTextInput] = useState<string>('')
     let [error, setError] = useState<string | null>(null)
 
@@ -13,20 +13,20 @@ export function InputText(props: propsType) {
         setError(null)
     }
 
-    // const addTask = () => {
-    //     if (textInput.trim() !== '') {
-    //         props.addTask(textInput)
-    //         setTextInput('')
-    //     } else {
-    //         setError('ERROR')
-    //     }
-    // }
-    //
-    // const onKeyPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    //     if (e.key === 'Enter') {
-    //         addTask()
-    //     }
-    // }
+    const addTodolistOrTask = () => {
+        if (textInput.trim() !== '') {
+            props.addTodolistOrTask(textInput)
+            setTextInput('')
+        } else {
+            setError('ERROR')
+        }
+    }
+
+    const onKeyPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            addTodolistOrTask()
+        }
+    }
 
 
     return <div>
@@ -34,9 +34,9 @@ export function InputText(props: propsType) {
                type="text"
                value={textInput}
                onChange={onChangeTextHandler}
-               // onKeyPress={onKeyPressEnter}
+               onKeyPress={onKeyPressEnter}
         />
-        {/*<button onClick={addTask}>+</button>*/}
+        <button onClick={addTodolistOrTask}>+</button>
         <div className='error'>{error}</div>
     </div>;
 }

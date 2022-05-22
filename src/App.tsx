@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchTodolistsTC, TodolistDomainType,} from "./state/todolist-reducer";
+import {createTodolistsTC, fetchTodolistsTC, TodolistDomainType,} from "./state/todolist-reducer";
 import {AppRootStateType} from './state/store';
 import {fetchTasksTC, TasksStateType} from "./state/task-reducer";
+import {InputForCreate} from "./InputText";
 
 function App() {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
@@ -17,9 +18,14 @@ function App() {
         dispatch(fetchTodolistsTC())
     }, [])
 
+    const addTodolist = (title: string) => {
+        // @ts-ignore
+        dispatch(createTodolistsTC(title))
+    }
 
     return (
         <div className='Main'>
+            <InputForCreate addTodolistOrTask={addTodolist}/>
             {
                 todolists.map(tl => {
                     let allTodolistTasks = tasks[tl.id]
