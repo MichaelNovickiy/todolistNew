@@ -1,45 +1,59 @@
-import React, {useEffect} from "react";
-import './Styles.css';
-import {useDispatch,} from "react-redux";
-import {fetchTasksTC,} from "./state/task-reducer";
-import {Task} from "./Task";
-import {deleteTodolistsTC} from "./state/todolist-reducer";
+import React, {useEffect} from 'react'
+import {TaskStatuses, TaskType} from "./api/todolist-api";
+import {FilterValuesType} from "./state/todolist-reducer";
+import {useDispatch} from "react-redux";
+import {fetchTasksTC} from "./state/task-reducer";
 
 
-export function Todolist(props: any) {
+type PropsType = {
+    id: string
+    title: string
+    tasks: Array<TaskType>
+    removeTodolist: (id: string) => void
+    filter: FilterValuesType
+}
+
+export const Todolist = React.memo(function (props: PropsType) {
+
     const dispatch = useDispatch()
-
-    let deleteTodolists = (todolistId: string) => {
-        // @ts-ignore
-        dispatch(deleteTodolistsTC(todolistId))
-    }
-
     useEffect(() => {
         const thunk = fetchTasksTC(props.id)
         // @ts-ignore
         dispatch(thunk)
     }, [])
 
+    const removeTodolist = () => {
+        props.removeTodolist(props.id)
+    }
+
+    let tasksForTodolist = props.tasks
+
+    if (props.filter === 'active') {
+        tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.New)
+    }
+    if (props.filter === 'completed') {
+        tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
+    }
+
 
     return <div>
-
+        <h3>{props.title}
+            {/*@ts-ignore*/}
+            <button onClick={() => removeTodolist(props.id)}>X</button>
+        </h3>
         <div>
-            <h3>{props.title}
-                {/*@ts-ignore*/}
-                <button onClick={()=>deleteTodolists(props.id)}>X</button>
-            </h3>
-
-            {/*<InputText />*/}
             {
-                props.tasks.map((t: any) => <Task key={t.id} task={t} todolistId={props.id}
-                />)
+                tasksForTodolist.map(t => <div key={t.id}>{t.id}</div>)
+                //     <Task key={t.id} task={t} todolistId={props.id}/>
+                //
             }
-            <button className={props.filter === 'all' ? 'active' : ''}>ALL
-            </button>
-            <button className={props.filter === 'active' ? 'active' : ''}>ACTIVE
-            </button>
-            <button className={props.filter === 'completed' ? 'active' : ''}>COMPLETED
-            </button>
         </div>
+
+        <button className={props.filter === 'all' ? 'active' : ''}>ALL
+        </button>
+        <button className={props.filter === 'active' ? 'active' : ''}>ACTIVE
+        </button>
+        <button className={props.filter === 'completed' ? 'active' : ''}>COMPLETED
+        </button>
     </div>;
-}
+})
